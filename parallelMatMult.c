@@ -57,7 +57,7 @@ int main(){
 
 	/* TEMP : WELCOME MESSAGE AND ASKING FOR USER DEFINED NUMDER OF THREADS*/
 	printf("=============================WELCOME============================\n");
-	printf("						LAB ASSIGNMENT 1						\n");
+	printf("						LAB ASSIGNMENT                           \n");
 	printf("================================================================\n\n");
 	printf("CHECK IF USER DEFINED NUMBER OF THREADS CAN BE CONTROLLED\n");
 	printf("Number of Threads: ");
@@ -101,13 +101,13 @@ void allocateMemory(){
 	/* If Multiplication is Possible, allocate memory for the three matrices and check if its failed */
 			 matA = malloc(ROW_A*COL_A*sizeof(double));
 			  if(matA==NULL)
-				  printf("\nMemory allcation failed for matrix A.\n");
+				  printf("\nMemory allocation failed for matrix A.\n");
 			  matB = malloc(ROW_B*COL_B*sizeof(double));
 			  if(matB==NULL)
-				  printf("\nMemory allcation failed for matrix B.\n");
+				  printf("\nMemory allocation failed for matrix B.\n");
 			  matC = malloc(ROW_A*COL_B*sizeof(double));
 			  if(matC==NULL)
-				  printf("\nMemory allcation failed for matrix C.\n");
+				  printf("\nMemory allocation failed for matrix C.\n");
 
 			  printf("Memory Allocation Successfully Done!!\n");
 }
@@ -171,10 +171,11 @@ void parallelMultiplication(){
 		begin = omp_get_wtime();
 		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId)
 		{
-			threadId = omp_get_thread_num(); //holds the thread number of each thread
+			//threadId = omp_get_thread_num(); //holds the thread number of each thread
 
 			//Split the first for loop among the threads
-			#pragma omp for schedule(guided,noRows)
+			//#pragma omp for schedule(guided,noRows)
+			#pragma omp for
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  //printf("Thread #%d is working on row %d.\n",threadId,i);
@@ -203,5 +204,7 @@ void collectResults(){
 	fprintf (resultFilePointer, "Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
 	printf("Writing Parallel Multiplication data in file\n");
 	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, noThreads, time_spent);
+	fprintf (resultFilePointer, "***************************************************************************************\n");
+
 
 }
