@@ -57,7 +57,7 @@ int main(){
 
 	/* TEMP : WELCOME MESSAGE AND ASKING FOR USER DEFINED NUMDER OF THREADS*/
 	printf("=============================WELCOME============================\n");
-	printf("						LAB ASSIGNMENT                           \n");
+	printf("                        LAB ASSIGNMENT 1                         \n");
 	printf("================================================================\n\n");
 	printf("CHECK IF USER DEFINED NUMBER OF THREADS CAN BE CONTROLLED\n");
 	printf("Number of Threads: ");
@@ -174,8 +174,8 @@ void parallelMultiplication(){
 			//threadId = omp_get_thread_num(); //holds the thread number of each thread
 
 			//Split the first for loop among the threads
-			//#pragma omp for schedule(guided,noRows)
-			#pragma omp for
+			#pragma omp for schedule(guided,noRows)
+			//#pragma omp for
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  //printf("Thread #%d is working on row %d.\n",threadId,i);

@@ -25,3 +25,21 @@ Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 4 no. of t
 Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 236.710000
 Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 4 no. of threads is 349.673012
 ***************************************************************************************
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 236.840000
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 1 no. of threads is 275.332847
+***************************************************************************************
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 238.040000
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 5 no. of threads is 355.856575
+***************************************************************************************
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 234.560000
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 10 no. of threads is 357.736899
+***************************************************************************************
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 237.770000
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 16 no. of threads is 331.347371
+***************************************************************************************
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 234.130000
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 16 no. of threads is 316.545257
+***************************************************************************************
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 234.860000
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 16 no. of threads is 322.273290
+***************************************************************************************
