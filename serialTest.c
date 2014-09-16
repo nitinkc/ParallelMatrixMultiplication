@@ -33,9 +33,9 @@
 		double begin=0, end=0;
 		double time_spent=0;
 
-	/* Declare number of Threads for Parallel Execution*/
-		int noThreads = 16;
-		int noRows, threadId;
+	/* Variables for sequential execution of time*/
+		clock_t begin_seq=0, end_seq=0;
+		double time_spent_seq=0;
 
 	/* Function Prototypes */
 		void allocateMemory();
@@ -156,7 +156,7 @@ void collectResults(){
 	mytime = time(NULL);
 	printf("TESTING : Writing Parallel Multiplication data in file\n");
 	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
-	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, noThreads, time_spent);
+	fprintf (resultFilePointer, "Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
 
 

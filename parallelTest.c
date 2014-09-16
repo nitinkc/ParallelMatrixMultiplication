@@ -72,7 +72,7 @@ int main(){
 			//#pragma omp for
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
-				  //printf("Thread #%d is working on row %d.\n",threadId,i);
+				  printf("Thread #%d is working on row %d.\n",threadId,i);
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
