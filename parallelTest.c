@@ -66,7 +66,7 @@ int main(){
 		{
 			int i,j,k;
 			noThreads = omp_get_num_threads();
-			printf("Number of threads = %d\n", noThreads);
+			//printf("Number of threads = %d\n", noThreads);
 			noRows = ROW_A/noThreads;
 			omp_set_num_threads(noThreads);
 
