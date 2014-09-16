@@ -60,24 +60,25 @@ int main(){
 		/* For parallel threaded multiplication, Rows from matrix A is to be multiplied with Columns
 		 * of matrix B resulting in the Rows of Matrix C. Thus each thread can work on some Rows,
 		 * depending upon the division of jobs into threads  */
-	int i,j,k;
-		//noThreads = omp_get_num_threads();
-		//printf("Number of threads = %d\n", noThreads);
-		noRows = ROW_A/noThreads;
-		omp_set_num_threads(noThreads); //set the number of threads
-		printf("Parallel Threads running = %d\n", noRows);
+
 		begin = omp_get_wtime();
 		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId)
 		{
+			int i,j,k;
+			noThreads = omp_get_num_threads();
+			printf("Number of threads = %d\n", noThreads);
+			noRows = ROW_A/noThreads;
+			omp_set_num_threads(noThreads);
 
 			//Split the first for loop among the threads
 
 			//#pragma omp for
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+			#pragma omp for schedule(dynamic,noRows)
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  //printf("Thread #%d is working on row %d.\n",threadId,i);
 				  for(j=0;j<COL_B;j++){  //column of second matrix
-					#pragma omp for schedule(dynamic,noRows)
+
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
 					}//end k

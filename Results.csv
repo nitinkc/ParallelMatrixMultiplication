@@ -46,3 +46,21 @@ Serial execution time of Matrices of dim 500X200 & 200X250 is 0.161136
 Testing done on : Tue Sep 16 10:05:06 2014
 Serial execution time of Matrices of dim 500X200 & 200X250 is 0.160448
 ***************************************************************************************
+Testing done on : Tue Sep 16 10:06:54 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 1.092219
+***************************************************************************************
+Testing done on : Tue Sep 16 10:07:05 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 1.114247
+***************************************************************************************
+Testing done on : Tue Sep 16 10:07:07 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 1.103899
+***************************************************************************************
+Testing done on : Tue Sep 16 11:02:13 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 0.091527
+***************************************************************************************
+Testing done on : Tue Sep 16 11:02:15 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 0.086771
+***************************************************************************************
+Testing done on : Tue Sep 16 11:02:16 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 0.085182
+***************************************************************************************
