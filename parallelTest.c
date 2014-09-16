@@ -1,15 +1,3 @@
-/* parallelMatMult.c
- * The program generates 2 matrices of dimensions 5000X2000 and 2000X2500 with
- * all elements as random generated double values
- *
- * The multiplication is done in a parallel fashion and it is compared with that
- * of the sequential one.
- *
- * Author: Nitin K Chaurasia
- *
- *  Created on: Sep 10, 2014, 1:17 AM
- *  Modified: Sep 10, 2014
- */
 
 #include <stdio.h>
 #include <time.h>
@@ -20,10 +8,10 @@
 #define MAXRAND 9999
 
 //Dimensions of the Matrices to be multiplied
-#define ROW_A 5000
-#define COL_A 2000
-#define ROW_B 2000
-#define COL_B 2500
+#define ROW_A 500
+#define COL_A 200
+#define ROW_B 200
+#define COL_B 250
 
 /* GLOBAL VARIABLE DECLAARTION */
 
@@ -32,23 +20,18 @@
 		double *matB=NULL;
 		double *matC=NULL;
 
-	/* Variables for sequential execution of time*/
-		clock_t begin_seq=0, end_seq=0;
-		double time_spent_seq=0;
 
 	/* Variables for Parallel execution time*/
 		double begin=0, end=0;
 		double time_spent=0;
 
 	/* Declare number of Threads for Parallel Execution*/
-		int noThreads = 1;
+		int noThreads = 16;
 		int noRows, threadId;
 
 	/* Function Prototypes */
 		void allocateMemory();
 		void fillMatrix();
-		void sequentialMultiplication();
-		void parallelMultiplication();
 		void collectResults();
 
 /* MAIN BEGINS */
@@ -57,12 +40,9 @@ int main(){
 
 	/* TEMP : WELCOME MESSAGE AND ASKING FOR USER DEFINED NUMDER OF THREADS*/
 	printf("=============================WELCOME============================\n");
-	printf("                        LAB ASSIGNMENT 1                         \n");
+	printf("                             TESTING                         \n");
 	printf("================================================================\n\n");
-	printf("CHECK IF USER DEFINED NUMBER OF THREADS CAN BE CONTROLLED\n");
-	printf("Number of Threads: ");
-	scanf("%d", &noThreads);
-	printf("The number of threads are %d\n", noThreads);
+
 
 	/* Check for multiplication compatibility */
 		if (COL_A != ROW_B){
@@ -77,11 +57,32 @@ int main(){
 		/* Generate Random numbers and fill them in the Matrix*/
 		fillMatrix();
 
-		/* Sequential Multiplication*/
-		sequentialMultiplication();
-
-		/* Parallel Multiplication*/
-		parallelMultiplication();
+		/* For parallel threaded multiplication, Rows from matrix A is to be multiplied with Columns
+		 * of matrix B resulting in the Rows of Matrix C. Thus each thread can work on some Rows,
+		 * depending upon the division of jobs into threads  */
+	int i,j,k;
+		noRows = ROW_A/noThreads;
+		omp_set_num_threads(noThreads); //set the number of threads
+		printf("Parallel Threads running = %d\n", noRows);
+		begin = omp_get_wtime();
+		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId)
+		{
+			//Split the first for loop among the threads
+			#pragma omp for schedule(guided,noRows)
+			//#pragma omp for
+			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+			  for(i=0;i<ROW_A;i++){ //row of first matrix
+				  //printf("Thread #%d is working on row %d.\n",threadId,i);
+				  for(j=0;j<COL_B;j++){  //column of second matrix
+					  for(k=0;k<COL_A;k++){
+						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
+					}//end k
+				  }//end j
+			  }//end i
+		  }
+		end = omp_get_wtime();
+		time_spent = (double)(end - begin) ;
+		printf("The time spent is : %1.5f\n", time_spent);
 
 		//free all of the memory
 	  printf("Freeing memory.....\n");
@@ -110,24 +111,6 @@ void allocateMemory(){
 				  printf("\nMemory allocation failed for matrix C.\n");
 
 			  printf("Memory Allocation Successfully Done!!\n");
-}
-
-void sequentialMultiplication(){
-	int i,j,k;
-	printf("Multiplying Matrices Traditionally (Sequentially).....\n");
-		begin_seq = clock();
-		//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-	      for(i=0;i<ROW_A;i++){ //row of first matrix
-			  for(j=0;j<COL_B;j++){  //column of second matrix
-				  for(k=0;k<COL_A;k++){//iterate till Col A or Row B
-					   *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
-				  }
-			  }
-		  }
-		end_seq = clock();
-		time_spent_seq = (double)(end_seq - begin_seq) / CLOCKS_PER_SEC;
-		printf("The time spent is : %1.5f sec\n", time_spent_seq);
-
 }
 
 void fillMatrix(){
@@ -160,36 +143,6 @@ void fillMatrix(){
 	}//End Loop for Row
 }
 
-/* For parallel threaded multiplication, Rows from matrix A is to be multiplied with Columns
-		 * of matrix B resulting in the Rows of Matrix C. Thus each thread can work on some Rows,
-		 * depending upon the division of jobs into threads  */
-void parallelMultiplication(){
-	int i,j,k;
-		noRows = ROW_A/noThreads;
-		omp_set_num_threads(noThreads); //set the number of threads
-		printf("Parallel Threads running = %d\n", noRows);
-		begin = omp_get_wtime();
-		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId)
-		{
-			//threadId = omp_get_thread_num(); //holds the thread number of each thread
-
-			//Split the first for loop among the threads
-			#pragma omp for schedule(guided,noRows)
-			//#pragma omp for
-			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-			  for(i=0;i<ROW_A;i++){ //row of first matrix
-				  //printf("Thread #%d is working on row %d.\n",threadId,i);
-				  for(j=0;j<COL_B;j++){  //column of second matrix
-					  for(k=0;k<COL_A;k++){
-						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
-					}//end k
-				  }//end j
-			  }//end i
-		  }
-		end = omp_get_wtime();
-		time_spent = (double)(end - begin) ;
-		printf("The time spent is : %1.5f\n", time_spent);
-}
 
 void collectResults(){
 
@@ -200,13 +153,12 @@ void collectResults(){
 		printf ("Cannot open file to write!\n");
 		 exit(-1);
 	}
-
+	
 	//For Current System time
 	time_t mytime;
+	mytime = time(NULL);
+	printf("TESTING : Writing Parallel Multiplication data in file\n");
 	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
-	printf("Writing Serial Multiplication data in file\n");
-	fprintf (resultFilePointer, "Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
-	printf("Writing Parallel Multiplication data in file\n");
 	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, noThreads, time_spent);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
 
