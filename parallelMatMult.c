@@ -112,24 +112,6 @@ void allocateMemory(){
 			  printf("Memory Allocation Successfully Done!!\n");
 }
 
-void sequentialMultiplication(){
-	int i,j,k;
-	printf("Multiplying Matrices Traditionally (Sequentially).....\n");
-		begin_seq = clock();
-		//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-	      for(i=0;i<ROW_A;i++){ //row of first matrix
-			  for(j=0;j<COL_B;j++){  //column of second matrix
-				  for(k=0;k<COL_A;k++){//iterate till Col A or Row B
-					   *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
-				  }
-			  }
-		  }
-		end_seq = clock();
-		time_spent_seq = (double)(end_seq - begin_seq) / CLOCKS_PER_SEC;
-		printf("The time spent is : %1.5f sec\n", time_spent_seq);
-
-}
-
 void fillMatrix(){
 	int i,j,k;
 	/* Initialize the seed to generate Random Values */
@@ -160,11 +142,30 @@ void fillMatrix(){
 	}//End Loop for Row
 }
 
+void sequentialMultiplication(){
+	int i,j,k;
+	printf("Multiplying Matrices Traditionally (Sequentially).....\n");
+		begin_seq = clock();
+		//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+	      for(i=0;i<ROW_A;i++){ //row of first matrix
+			  for(j=0;j<COL_B;j++){  //column of second matrix
+				  for(k=0;k<COL_A;k++){//iterate till Col A or Row B
+					   *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
+				  }
+			  }
+		  }
+		end_seq = clock();
+		time_spent_seq = (double)(end_seq - begin_seq) / CLOCKS_PER_SEC;
+		printf("The time spent is : %1.5f sec\n", time_spent_seq);
+
+}
+
 /* For parallel threaded multiplication, Rows from matrix A is to be multiplied with Columns
 		 * of matrix B resulting in the Rows of Matrix C. Thus each thread can work on some Rows,
 		 * depending upon the division of jobs into threads  */
 void parallelMultiplication(){
 	int i,j,k;
+		//noThreads = omp_get_num_threads();
 		noRows = ROW_A/noThreads;
 		omp_set_num_threads(noThreads); //set the number of threads
 		printf("Parallel Threads running = %d\n", noRows);
@@ -174,7 +175,7 @@ void parallelMultiplication(){
 			//threadId = omp_get_thread_num(); //holds the thread number of each thread
 
 			//Split the first for loop among the threads
-			#pragma omp for schedule(guided,noRows)
+			#pragma omp for schedule(dynamic,noRows)
 			//#pragma omp for
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
