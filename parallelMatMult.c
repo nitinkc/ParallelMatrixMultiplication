@@ -170,7 +170,7 @@ void parallelMultiplication(){
 		omp_set_num_threads(noThreads); //set the number of threads
 		printf("Parallel Threads running = %d\n", noRows);
 		begin = omp_get_wtime();
-		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId)
+		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId,i,j,k)
 		{
 			//threadId = omp_get_thread_num(); //holds the thread number of each thread
 
