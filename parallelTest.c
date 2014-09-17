@@ -8,10 +8,10 @@
 #define MAXRAND 9999
 
 //Dimensions of the Matrices to be multiplied
-#define ROW_A 500
-#define COL_A 200
-#define ROW_B 200
-#define COL_B 250
+#define ROW_A 5000
+#define COL_A 2000
+#define ROW_B 2000
+#define COL_B 2500
 
 /* GLOBAL VARIABLE DECLAARTION */
 
@@ -127,7 +127,6 @@ void fillMatrix(){
 	//Matrix A
 	for(i=0;i<ROW_A;i++){
 		for(j=0;j<COL_A;j++){
-			//matA[i][j]=((double)rand()/(double)MAXRAND);//traditional method of fixed size array
 			*(matA+(i*COL_A+j))=((double)rand()/(double)MAXRAND);
 		}//End Loop for Column
 	}//End Loop for Row
@@ -135,7 +134,6 @@ void fillMatrix(){
 	//Matrix B
 	for(i=0;i<ROW_B;i++){
 		for(j=0;j<COL_B;j++){
-			//matB[i][j]=((double)rand()/(double)MAXRAND);
 			*(matB+(i*COL_A+j))=((double)rand()/(double)MAXRAND);
 		}//End Loop for Column
 	}//End Loop for Row

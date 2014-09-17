@@ -13,13 +13,13 @@
 #include <omp.h>
 
 //Random Number Range
-#define MAXRAND 9999
+#define MAXRAND 9999.99
 
 //Dimensions of the Matrices to be multiplied
-#define ROW_A 500
-#define COL_A 200
-#define ROW_B 200
-#define COL_B 250
+#define ROW_A 5000
+#define COL_A 2000
+#define ROW_B 2000
+#define COL_B 2500
 
 /* GLOBAL VARIABLE DECLAARTION */
 
@@ -74,7 +74,9 @@ int main(){
 					  for(j=0;j<COL_B;j++){  //column of second matrix
 						  for(k=0;k<COL_A;k++){//iterate till Col A or Row B
 							   *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
+							   //printf("%f\t", *( matC+(i*COL_A+j) ));
 						  }
+						 // printf("\n");
 					  }
 				  }
 				end_seq = clock();
@@ -117,26 +119,35 @@ void fillMatrix(){
 
 	/* Generate Matrices */
 	//Matrix A
+	printf("%s\n","Matrix A" );
 	for(i=0;i<ROW_A;i++){
 		for(j=0;j<COL_A;j++){
-			//matA[i][j]=((double)rand()/(double)MAXRAND);//traditional method of fixed size array
-			*(matA+(i*COL_A+j))=((double)rand()/(double)MAXRAND);
+			*(matA+(i*COL_A+j))=((double)rand())/(double)MAXRAND;
+			// printf("%f\t", *(matA+(i*COL_A+j)));
 		}//End Loop for Column
+		//printf("\n");
 	}//End Loop for Row
 
 	//Matrix B
+	printf("%s\n","Matrix B" );
 	for(i=0;i<ROW_B;i++){
 		for(j=0;j<COL_B;j++){
-			//matB[i][j]=((double)rand()/(double)MAXRAND);
-			*(matB+(i*COL_A+j))=((double)rand()/(double)MAXRAND);
+			*(matB+(i*COL_A+j))=((double)rand())/(double)MAXRAND;
+			//printf("%f\t", *(matB+(i*COL_A+j)));
 		}//End Loop for Column
+		//printf("\n");
+
 	}//End Loop for Row
 
 	//Matrix C (initialized to Zero)
+	printf("%s\n","Matrix C" );
 	for(i=0;i<ROW_A;i++){
 		for(j=0;j<COL_B;j++){
 			*(matC+(i*COL_B+j)) = 0;
+			//printf("%f\t", *(matC+(i*COL_B+j)));
 		}//End Loop for Column
+		//printf("\n");
+
 	}//End Loop for Row
 }
 
@@ -154,7 +165,7 @@ void collectResults(){
 	//For Current System time
 	time_t mytime;
 	mytime = time(NULL);
-	printf("TESTING : Writing Parallel Multiplication data in file\n");
+	printf("TESTING : Writing Sequential Multiplication data in file\n");
 	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
 	fprintf (resultFilePointer, "Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
 	fprintf (resultFilePointer, "***************************************************************************************\n");

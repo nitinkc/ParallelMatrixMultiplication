@@ -76,3 +76,165 @@ Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threa
 Testing done on : Tue Sep 16 11:06:54 2014
 Serial execution time of Matrices of dim 500X200 & 200X250 is 0.175740
 ***************************************************************************************
+Testing done on : Wed Sep 17 03:43:34 2014
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 4 no. of threads is 176.190026
+***************************************************************************************
+Testing done on : Wed Sep 17 04:04:49 2014
+Serial execution time of Matrices of dim 50X20 & 20X25 is 0.012719
+***************************************************************************************
+Testing done on : Wed Sep 17 04:05:39 2014
+Serial execution time of Matrices of dim 50X20 & 20X25 is 0.010912
+***************************************************************************************
+Testing done on : Wed Sep 17 04:08:57 2014
+Serial execution time of Matrices of dim 50X20 & 20X25 is 0.000347
+***************************************************************************************
+Testing done on : Wed Sep 17 04:54:50 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000007
+***************************************************************************************
+Testing done on : Wed Sep 17 04:55:50 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000010
+***************************************************************************************
+Testing done on : Wed Sep 17 04:57:05 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000017
+***************************************************************************************
+Testing done on : Wed Sep 17 04:57:07 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000017
+***************************************************************************************
+Testing done on : Wed Sep 17 04:57:08 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000011
+***************************************************************************************
+Testing done on : Wed Sep 17 04:57:13 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000011
+***************************************************************************************
+Testing done on : Wed Sep 17 04:58:37 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000010
+***************************************************************************************
+Testing done on : Wed Sep 17 04:59:43 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000013
+***************************************************************************************
+Testing done on : Wed Sep 17 05:00:13 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000008
+***************************************************************************************
+Testing done on : Wed Sep 17 05:14:13 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000014
+***************************************************************************************
+Testing done on : Wed Sep 17 10:39:40 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000011
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:18 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000017
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:19 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000017
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:32 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000021
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:53 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000033
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:54 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000032
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:55 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000031
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:56 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000032
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:57 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000023
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:58 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000029
+***************************************************************************************
+Testing done on : Wed Sep 17 10:42:59 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000036
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:00 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000022
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:01 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000030
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:01 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000032
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:02 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000036
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:03 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000034
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:04 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000036
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:05 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000034
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:05 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000022
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:06 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000020
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:07 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000036
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:07 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000032
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:08 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000023
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:09 2014
+Serial execution time of Matrices of dim 2X2 & 2X2 is 0.000034
+***************************************************************************************
+Testing done on : Wed Sep 17 10:43:26 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.016041
+***************************************************************************************
+Testing done on : Wed Sep 17 10:44:34 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000064
+***************************************************************************************
+Testing done on : Wed Sep 17 10:44:58 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000063
+***************************************************************************************
+Testing done on : Wed Sep 17 10:45:01 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000055
+***************************************************************************************
+Testing done on : Wed Sep 17 10:45:01 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000055
+***************************************************************************************
+Testing done on : Wed Sep 17 10:45:02 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000107
+***************************************************************************************
+Testing done on : Wed Sep 17 10:45:03 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000106
+***************************************************************************************
+Testing done on : Wed Sep 17 10:53:28 2014
+Serial execution time of Matrices of dim 20X20 & 20X20 is 0.000107
+***************************************************************************************
+Testing done on : Wed Sep 17 10:56:32 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 0.078373
+***************************************************************************************
+Testing done on : Wed Sep 17 10:56:48 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 0.072794
+***************************************************************************************
+Testing done on : Wed Sep 17 10:57:05 2014
+Serial execution time of Matrices of dim 500X200 & 200X250 is 0.166628
+***************************************************************************************
+Testing done on : Wed Sep 17 10:58:16 2014
+Serial execution time of Matrices of dim 500X200 & 200X250 is 0.181645
+***************************************************************************************
+Testing done on : Wed Sep 17 10:58:58 2014
+Serial execution time of Matrices of dim 500X200 & 200X250 is 0.189233
+***************************************************************************************
+Testing done on : Wed Sep 17 10:59:03 2014
+Parallel execution time of Matrices of dim 500X200 & 200X250 with 4 no. of threads is 0.073819
+***************************************************************************************
+Testing done on : Wed Sep 17 11:05:31 2014
+Serial execution time of Matrices of dim 5000X2000 & 2000X2500 is 327.206422
+***************************************************************************************
+Testing done on : Wed Sep 17 11:09:34 2014
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 4 no. of threads is 166.259059
+***************************************************************************************
