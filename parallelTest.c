@@ -68,7 +68,7 @@ int main(){
 		{
 			//noThreads = omp_get_num_threads();
 			noRows = ROW_A/noThreads;
-			omp_set_num_threads(noThreads);
+			//omp_set_num_threads(noThreads);
 
 			#pragma omp for schedule(dynamic,noRows)
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
