@@ -40,9 +40,10 @@ int main(){
 
 	/* TEMP : WELCOME MESSAGE AND ASKING FOR USER DEFINED NUMDER OF THREADS*/
 	printf("=============================WELCOME============================\n");
-	printf("                             TESTING                         \n");
+	printf("                        PARALLEL TESTING                         \n");
 	printf("================================================================\n\n");
-
+	printf("Enter Number of Threads: ");
+	scanf("%d", &noThreads);
 
 	/* Check for multiplication compatibility */
 		if (COL_A != ROW_B){
@@ -61,24 +62,17 @@ int main(){
 		 * of matrix B resulting in the Rows of Matrix C. Thus each thread can work on some Rows,
 		 * depending upon the division of jobs into threads  */
 
+		int i,j,k;
 		begin = omp_get_wtime();
-		#pragma omp parallel shared(matA,matB,matC,noRows) private(threadId)
+		#pragma omp parallel shared(matA,matB,matC,noRows) private(i,j,k)
 		{
-			int i,j,k;
-			noThreads = omp_get_num_threads();
-			//printf("Number of threads = %d\n", noThreads);
+			//noThreads = omp_get_num_threads();
 			noRows = ROW_A/noThreads;
 			omp_set_num_threads(noThreads);
 
-			//Split the first for loop among the threads
-
-			//#pragma omp for
-			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			#pragma omp for schedule(dynamic,noRows)
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
-				  //printf("Thread #%d is working on row %d.\n",threadId,i);
 				  for(j=0;j<COL_B;j++){  //column of second matrix
-
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
 					}//end k
@@ -87,7 +81,7 @@ int main(){
 		  }
 		end = omp_get_wtime();
 		time_spent = (double)(end - begin) ;
-		printf("The time spent is : %1.5f\n", time_spent);
+		printf("The time spent is : %1.5f with %d threads\n", time_spent,noThreads);
 
 		//free all of the memory
 	  printf("Freeing memory.....\n");
