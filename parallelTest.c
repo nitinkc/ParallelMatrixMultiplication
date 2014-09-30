@@ -70,7 +70,7 @@ int main(){
 			noRows = ROW_A/noThreads;
 			//omp_set_num_threads(noThreads);
 
-			#pragma omp for schedule(dynamic,noRows)
+			#pragma omp for schedule(guided,noRows)
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
