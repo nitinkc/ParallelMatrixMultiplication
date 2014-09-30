@@ -26,8 +26,8 @@
 		double time_spent=0;
 
 	/* Declare number of Threads for Parallel Execution*/
-		int noThreads=4;
-		int noRows, threadId;
+		int numThreads=4;
+		int chunk, threadId;
 
 	/* Function Prototypes */
 		void allocateMemory();
@@ -43,7 +43,7 @@ int main(){
 	printf("                        PARALLEL TESTING                         \n");
 	printf("================================================================\n\n");
 	printf("Enter Number of Threads: ");
-	scanf("%d", &noThreads);
+	scanf("%d", &numThreads);
 
 	/* Check for multiplication compatibility */
 		if (COL_A != ROW_B){
@@ -67,7 +67,7 @@ int main(){
 		#pragma omp parallel shared(matA,matB,matC,noRows) private(i,j,k)
 		{
 			//noThreads = omp_get_num_threads();
-			noRows = ROW_A/noThreads;
+			chunk = ROW_A/numThreads;
 			//omp_set_num_threads(noThreads);
 
 			#pragma omp for schedule(dynamic,noRows)
@@ -81,7 +81,7 @@ int main(){
 		  }//end PRAGMA
 		end = omp_get_wtime();
 		time_spent = (double)(end - begin) ;
-		printf("The time spent is : %1.5f with %d threads\n", time_spent,noThreads);
+		printf("The time spent is : %1.5f with %d threads\n", time_spent,numThreads);
 
 		//free all of the memory
 	  printf("Freeing memory.....\n");
@@ -156,7 +156,7 @@ void collectResults(){
 	mytime = time(NULL);
 	printf("TESTING : Writing Parallel Multiplication data in file\n");
 	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
-	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, noThreads, time_spent);
+	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
 
 

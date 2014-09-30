@@ -1,15 +1,10 @@
-/* parallelMatMult.c
- * The program generates 2 matrices of dimensions 5000X2000 and 2000X2500 with
- * all elements as random generated double values
+/*
+ * Assignment2.c
  *
- * The multiplication is done in a parallel fashion and it is compared with that
- * of the sequential one.
- *
- * Author: Nitin K Chaurasia
- *
- *  Created on: Sep 10, 2014, 1:17 AM
- *  Modified: Sep 10, 2014
+ *  Created on: Sep 30, 2014
+ *      Author: nitin
  */
+
 
 #include <stdio.h>
 #include <time.h>
@@ -20,10 +15,10 @@
 #define MAXRAND 9999
 
 //Dimensions of the Matrices to be multiplied
-#define ROW_A 5000
-#define COL_A 2000
-#define ROW_B 2000
-#define COL_B 2500
+#define ROW_A 50
+#define COL_A 20
+#define ROW_B 20
+#define COL_B 25
 
 /* GLOBAL VARIABLE DECLAARTION */
 
@@ -57,10 +52,9 @@ int main(){
 
 	/* TEMP : WELCOME MESSAGE AND ASKING FOR USER DEFINED NUMDER OF THREADS*/
 	printf("=============================WELCOME============================\n");
-	printf("                        LAB ASSIGNMENT 1                         \n");
+	printf("                        LAB ASSIGNMENT 2                         \n");
 	printf("================================================================\n\n");
-	printf("CHECK IF USER DEFINED NUMBER OF THREADS CAN BE CONTROLLED\n");
-	printf("Number of Threads: ");
+	printf("Enter Number of Threads: ");
 	scanf("%d", &numThreads);
 	printf("The number of threads are %d\n", numThreads);
 
@@ -117,7 +111,10 @@ void fillMatrix(){
 	/* Initialize the seed to generate Random Values */
 	srand((unsigned)time(NULL));
 
-	/* Generate Matrices */
+	/* Generate Matrices in parallel*/
+
+#pragma omp parallel
+	{
 	//Matrix A
 	for(i=0;i<ROW_A;i++){
 		for(j=0;j<COL_A;j++){
@@ -138,6 +135,8 @@ void fillMatrix(){
 			*(matC+(i*COL_B+j)) = 0.00;
 		}//End Loop for Column
 	}//End Loop for Row
+
+	}//End Parallel Block
 }
 
 void sequentialMultiplication(){
@@ -166,10 +165,10 @@ void parallelMultiplication(){
 		chunk = ROW_A/numThreads;
 		//omp_set_num_threads(omp_get_num_threads()); //set the number of threads
 		begin = omp_get_wtime();
-		#pragma omp parallel shared(matA,matB,matC,noRows) private(i,j,k)
+		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
-			//Split the first for loop among the threads
-			#pragma omp for schedule(dynamic,noRows)
+			//Task parallelization using the Index of the matrix
+
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  for(j=0;j<COL_B;j++){  //column of second matrix
@@ -178,7 +177,7 @@ void parallelMultiplication(){
 					}//end k
 				  }//end j
 			  }//end i
-		  }
+		  }//Parallel block ends
 		end = omp_get_wtime();
 		time_spent = (double)(end - begin) ;
 		printf("The time spent is : %1.5f\n", time_spent);
@@ -188,7 +187,7 @@ void collectResults(){
 
 	/* Variable Declaration*/
 	FILE *resultFilePointer;
-	resultFilePointer = fopen ("Results.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
+	resultFilePointer = fopen ("Results2A.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
 	if (resultFilePointer == NULL) {
 		printf ("Cannot open file to write!\n");
 		 exit(-1);
@@ -197,11 +196,9 @@ void collectResults(){
 	//For Current System time
 	time_t mytime;
 	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
-	printf("Writing Serial Multiplication data in file\n");
+	printf("Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
 	fprintf (resultFilePointer, "Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
-	printf("Writing Parallel Multiplication data in file\n");
+	printf("Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
 	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
-
-
 }
