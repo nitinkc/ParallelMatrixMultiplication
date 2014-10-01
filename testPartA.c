@@ -1,6 +1,6 @@
 #include <omp.h>
 #include <stdio.h>
-#define MAX 20
+#define MAX 50
 void main ()
 {
 	int n =0;
@@ -17,7 +17,7 @@ void main ()
 
          
 
-#pragma omp parallel private (this_thread,my_start,my_end,num_threads,n)
+#pragma omp parallel shared (this_thread,my_start,my_end,num_threads,n)
 {
 
 	 	 this_thread = omp_get_thread_num();
@@ -25,8 +25,7 @@ void main ()
          my_start = (this_thread  ) * MAX / num_threads;
          my_end   = (this_thread+1) * MAX / num_threads;
 
-          printf("This_threads =  %d\t Num_threads = %d\n",this_thread,num_threads);
-          printf("my_start =  %d\t %d\n",my_start,my_end);
+		 printf("This_threads =  %d Num_threads = %d my_start = %d my_end = %d\n", this_thread, num_threads, my_start, my_end);
           for(n=my_start; n<my_end; ++n)
 	   	  printf(" %d by Thread:%d\n", n, this_thread);
 }//end parallel
