@@ -167,6 +167,10 @@ void parallelMultiplication(){
 		begin = omp_get_wtime();
 		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
+			 this_thread = omp_get_thread_num();
+		 	 num_threads = omp_get_num_threads();
+	         my_start = (this_thread  ) * ROW_A / num_threads;
+	         my_end   = (this_thread+1) * ROW_A / num_threads;
 			//Task parallelization using the Index of the matrix
 
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
