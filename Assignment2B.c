@@ -15,10 +15,10 @@
 #define MAXRAND 9999
 
 //Dimensions of the Matrices to be multiplied
-#define ROW_A 5000
-#define COL_A 2000
-#define ROW_B 2000
-#define COL_B 2500
+#define ROW_A 50
+#define COL_A 20
+#define ROW_B 20
+#define COL_B 25
 
 /* GLOBAL VARIABLE DECLAARTION */
 
@@ -50,7 +50,7 @@ int main(){
 
 	/* TEMP : WELCOME MESSAGE AND ASKING FOR USER DEFINED NUMDER OF THREADS*/
 	printf("=============================WELCOME============================\n");
-	printf("                        LAB ASSIGNMENT 2B                         \n");
+	printf("            LAB ASSIGNMENT 2B (Row-wise Dynamic Scheduling      \n");
 	printf("================================================================\n\n");
 	printf("Enter Number of Threads: ");
 	scanf("%d", &numThreads);
@@ -166,7 +166,7 @@ void collectResults(){
 
 	/* Variable Declaration*/
 	FILE *resultFilePointer;
-	resultFilePointer = fopen ("Results2A.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
+	resultFilePointer = fopen ("Results2B.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
 	if (resultFilePointer == NULL) {
 		printf ("Cannot open file to write!\n");
 		 exit(-1);
