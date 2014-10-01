@@ -162,19 +162,20 @@ void sequentialMultiplication(){
 
 void parallelMultiplication(){
 	int i,j,k;
-		chunk = ROW_A/numThreads;
-		//omp_set_num_threads(omp_get_num_threads()); //set the number of threads
+		int this_thread = 0;
 		begin = omp_get_wtime();
 		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
 			 this_thread = omp_get_thread_num();
-		 	 num_threads = omp_get_num_threads();
-	         my_start = (this_thread  ) * ROW_A / num_threads;
-	         my_end   = (this_thread+1) * ROW_A / num_threads;
-			//Task parallelization using the Index of the matrix
+			 //numThreads = omp_get_num_threads();//Default number of threads
+
+ /* Task parallelization using the Index of the matrix */
+			 //Dividing equal work among the threads. Each chunk goes to one thread
+			 my_start = (this_thread)* ROW_A / numThreads;
+	         my_end   = (this_thread+1) * ROW_A / numThreads;
 
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-			  for(i=0;i<ROW_A;i++){ //row of first matrix
+			  for(i=my_start;i<my_end;i++){ //Row gets divided into equal size Chunks
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
