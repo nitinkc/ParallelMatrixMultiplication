@@ -373,7 +373,7 @@ void sequentialMultiplication(){
 
 void parallelMultiplication(){
 	int i,j,k;
-		int this_thread = 0, my_start, my_end;
+		int this_thread = 0;
 		begin = omp_get_wtime();
 		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
