@@ -4,3 +4,15 @@ Parallel execution time of Matrices of dim 50X20 & 20X25 with 16 no. of threads 
 Testing done on : Wed Dec 31 19:00:00 1969
 Parallel execution time of Matrices of dim 50X20 & 20X25 with 4 no. of threads and 12 chunk size is 0.016661
 ***************************************************************************************
+Testing done on : Thu Jul 12 03:41:04 1498221
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 16 no. of threads and 312 chunk size is 47.102539
+***************************************************************************************
+Testing done on : Sun Nov 29 11:49:20 1498978
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 8 no. of threads and 625 chunk size is 62.717993
+***************************************************************************************
+Testing done on : Tue Aug  8 00:03:28 1519020
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 4 no. of threads and 1250 chunk size is 107.517029
+***************************************************************************************
+Testing done on : Sat Jul  6 23:37:52 1521850
+Parallel execution time of Matrices of dim 5000X2000 & 2000X2500 with 2 no. of threads and 2500 chunk size is 192.569452
+***************************************************************************************
