@@ -5,6 +5,8 @@
 
 //Random Number Range
 #define MAXRAND 9999
+#define TRUE 1
+#define FALSE 0
 
 //Dimensions of the Matrices to be multiplied
 #define ROW_A 5000
@@ -156,7 +158,7 @@ void parallelMultiplication(){
 		begin = omp_get_wtime();
 
 		omp_init_lock(&lock);//initialize lock on poolCounter_i and poolCounter_j
-#pragma omp parallel shared(matA,matB,matC,poolCounter,assignIndex) private(i,j,k) num_threads(numThreads)
+#pragma omp parallel shared(matA,matB,matC,poolCounter_i,poolCounter_j,assignIndex) private(i,j,k) num_threads(numThreads)
 		{
 			while(assignIndex){//Removal of First and second for loop and picking up individual row
 				omp_set_lock(&lock);
