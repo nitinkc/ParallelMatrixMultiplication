@@ -202,6 +202,4 @@ void collectResults(){
 	printf("Writing Parallel Multiplication data in file\n");
 	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
-
-
 }

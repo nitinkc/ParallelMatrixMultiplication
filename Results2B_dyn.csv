@@ -1,0 +1,6 @@
+Testing done on : Wed Dec 31 19:00:00 1969
+Parallel execution time of Matrices of dim 50X20 & 20X25 with 16 no. of threads and 3 chunk size is 0.223643
+***************************************************************************************
+Testing done on : Wed Dec 31 19:00:00 1969
+Parallel execution time of Matrices of dim 50X20 & 20X25 with 4 no. of threads and 12 chunk size is 0.016661
+***************************************************************************************

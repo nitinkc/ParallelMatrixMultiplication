@@ -17,10 +17,10 @@
 #define FALSE 0
 
 //Dimensions of the Matrices to be multiplied
-#define ROW_A 50
-#define COL_A 20
-#define ROW_B 20
-#define COL_B 25
+#define ROW_A 5000
+#define COL_A 2000
+#define ROW_B 2000
+#define COL_B 2500
 
 /* GLOBAL VARIABLE DECLAARTION */
 
@@ -138,8 +138,8 @@ void fillMatrix(){
 
 void parallelMultiplication(){
 	int i,j,k;
-		begin = omp_get_wtime();
-		chunk = ROW_A/numThreads;
+	chunk = ROW_A/numThreads;
+	begin = omp_get_wtime();
 		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
 			//Split the first for loop among the threads
@@ -170,7 +170,7 @@ void collectResults(){
 
 	//For Current System time
 	time_t mytime;
-	fprintf(resultFilePointer,"Testing done on : %s", time(&mytime));
+	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
 	printf("Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is and %d chunk size is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads,chunk, time_spent);
 	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads and %d chunk size is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, chunk, time_spent);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
