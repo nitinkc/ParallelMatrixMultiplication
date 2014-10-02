@@ -21,10 +21,6 @@
 		double *matB=NULL;
 		double *matC=NULL;
 
-	/* Variables for sequential execution of time*/
-		clock_t begin_seq=0, end_seq=0;
-		double time_spent_seq=0;
-
 	/* Variables for Parallel execution time*/
 		double begin=0, end=0;
 		double time_spent=0;
@@ -36,7 +32,6 @@
 	/* Function Prototypes */
 		void allocateMemory();
 		void fillMatrix();
-		void sequentialMultiplication();
 		void parallelMultiplication();
 		void collectResults();
 
@@ -184,7 +179,6 @@ void parallelMultiplication(){
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
 					}//end k
-				  }//end j
 			  }//end WHILE
 		  }//Parallel block ends
 		end = omp_get_wtime();
