@@ -134,12 +134,12 @@ void parallelMultiplication(){
 			while(assignIndex){//Removal of First and second for loop and picking up individual row
 				omp_set_lock(&lock);
 				if(poolCounter_i < ROW_A){
-					 printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),poolCounter_i);
+					//printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),poolCounter_i);
 					poolCounter_i++;//increment the pool counter until ROW_A
 				}
 
 				else if(poolCounter_j < COL_B){
-					 printf("Thread =  %d takes Col = %d\n", omp_get_thread_num(),poolCounter_j);
+					//printf("Thread =  %d takes Col = %d\n", omp_get_thread_num(),poolCounter_j);
 					poolCounter_j++;//increment the pool counter until ROW_A
 				}
 
@@ -152,8 +152,9 @@ void parallelMultiplication(){
 				i = poolCounter_i;
 				j = poolCounter_j;
 				omp_unset_lock(&lock);
-					  for(k=0;k<COL_A;k++){
-						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
+
+				for(k=0;k<COL_A;k++){
+					*( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
 					}//end k
 			  }//end WHILE
 		  }//Parallel block ends
