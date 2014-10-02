@@ -5,7 +5,6 @@
  *      Author: nitin
  */
 
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -134,22 +133,20 @@ void fillMatrix(){
 		 * depending upon the division of jobs into threads  */
 
 void parallelMultiplication(){
-	int i,j,k;
+		int i,j,k;
 		int this_thread, my_start, my_end;
 		begin = omp_get_wtime();
 		
-
 #pragma omp parallel shared(matA,matB,matC,numThreads) private(i,j,k,this_thread, my_start,my_end) num_threads(numThreads)
 		{
 			 this_thread = omp_get_thread_num();
-			 //numThreads = omp_get_num_threads();//Default number of threads
 
- /* Task parallelization using the Index of the matrix */
-			 //Dividing equal work among the threads. Each chunk goes to one thread
-			 my_start = (this_thread)* ROW_A / numThreads;
+ /* Row wise Static Scheduling */
+			 //Assigning (ROW_A/numThreads) # of Rows to each thread.
+			 my_start = (this_thread)* ROW_A / numThreads;//Thread id decides the start and end of the for loop
 	         my_end   = (this_thread+1) * ROW_A / numThreads;
-			 printf("This_thread =  %d Num_threads = %d my_start =  %d my_end = %d\n", this_thread, numThreads, my_start, my_end);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-			  for(i=my_start;i<my_end;i++){ //Row gets divided into equal size Chunks
+			 printf("This_thread =  %d Num_threads = %d my_start =  %d my_end = %d\n", this_thread, numThreads, my_start, my_end);
+			  for(i=my_start;i<my_end;i++){ //divided into equal size Chunks
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));

@@ -13,6 +13,8 @@
 
 //Random Number Range
 #define MAXRAND 9999
+#define TRUE 1
+#define FALSE 0
 
 //Dimensions of the Matrices to be multiplied
 #define ROW_A 50
@@ -134,28 +136,36 @@ void fillMatrix(){
 		 * depending upon the division of jobs into threads  */
 
 void parallelMultiplication(){
-	int i,j,k;
-		int this_thread, my_start, my_end;
+		int i,j,k;
+		//Variables for
+		int poolCounter = 0;
+		int	assignIndex=TRUE;//variable to break the while loop after allocation of task is done
+		omp_lock_t lock;
 		begin = omp_get_wtime();
 		
 
-#pragma omp parallel shared(matA,matB,matC,numThreads) private(i,j,k,this_thread, my_start,my_end) num_threads(numThreads)
+		omp_init_lock(&lock);//initialize lock on poolCounter
+#pragma omp parallel shared(matA,matB,matC,poolCounter,assignIndex) private(i,j,k) num_threads(numThreads)
 		{
-			 this_thread = omp_get_thread_num();
-			 //numThreads = omp_get_num_threads();//Default number of threads
-
- /* Task parallelization using the Index of the matrix */
-			 //Dividing equal work among the threads. Each chunk goes to one thread
-			 my_start = (this_thread)* ROW_A / numThreads;
-	         my_end   = (this_thread+1) * ROW_A / numThreads;
-			 printf("This_thread =  %d Num_threads = %d my_start =  %d my_end = %d\n", this_thread, numThreads, my_start, my_end);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-			  for(i=my_start;i<my_end;i++){ //Row gets divided into equal size Chunks
+			while(assignIndex){//Removal of First for loop and picking up individual row
+				omp_set_lock(&lock);
+				if(poolCounter < ROW_A)
+					poolCounter++;//increment the pool counter until ROW_A
+				else{
+					assignIndex = FALSE;
+					omp_unset_lock(&lock);
+					continue;
+				}
+				i = poolCounter;
+				omp_unset_lock(&lock);
+			 printf("Thread =  %d takes Row = %d\n", numThreads,i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+			 //Each thread gets one Row
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
 					}//end k
 				  }//end j
-			  }//end i
+			  }//end WHILE
 		  }//Parallel block ends
 		end = omp_get_wtime();
 		time_spent = (double)(end - begin) ;
