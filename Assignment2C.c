@@ -60,9 +60,6 @@ int main(){
 		/* Generate Random numbers and fill them in the Matrix*/
 		fillMatrix();
 
-		/* Sequential Multiplication*/
-		sequentialMultiplication();
-
 		/* Parallel Multiplication*/
 		parallelMultiplication();
 
@@ -123,27 +120,6 @@ void fillMatrix(){
 	}//End Loop for Row
 }
 
-void sequentialMultiplication(){
-	int i,j,k;
-	printf("Multiplying Matrices Traditionally (Sequentially).....\n");
-		begin_seq = clock();
-		//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-	      for(i=0;i<ROW_A;i++){ //row of first matrix
-			  for(j=0;j<COL_B;j++){  //column of second matrix
-				  for(k=0;k<COL_A;k++){//iterate till Col A or Row B
-					   *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
-				  }
-			  }
-		  }
-		end_seq = clock();
-		time_spent_seq = (double)(end_seq - begin_seq) / CLOCKS_PER_SEC;
-		printf("The time spent is : %1.5f sec\n", time_spent_seq);
-	}
-
-		/* For parallel threaded multiplication, Rows from matrix A is to be multiplied with Columns
-		 * of matrix B resulting in the Rows of Matrix C. Thus each thread can work on some Rows,
-		 * depending upon the division of jobs into threads  */
-
 void parallelMultiplication(){
 	int i,j,k;
 		//Variables for
@@ -198,10 +174,8 @@ void collectResults(){
 
 	//For Current System time
 	time_t mytime;
-	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
-	printf("Writing Serial Multiplication data in file\n");
-	fprintf (resultFilePointer, "Serial execution time of Matrices of dim %dX%d & %dX%d is %f\n", ROW_A, COL_A, ROW_B, COL_B, time_spent_seq);
-	printf("Writing Parallel Multiplication data in file\n");
-	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
-	fprintf (resultFilePointer, "***************************************************************************************\n");
-}
+		fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
+		printf("Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
+		fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
+		fprintf (resultFilePointer, "***************************************************************************************\n");
+	}
