@@ -150,7 +150,7 @@ void parallelMultiplication(){
 			while(assignIndex){//Removal of First for loop and picking up individual row
 				omp_set_lock(&lock);
 				if(poolCounter < ROW_A){
-					 printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+					//printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),i);
 					poolCounter++;//increment the pool counter until ROW_A
 				}
 

@@ -168,7 +168,7 @@ void collectResults(){
 
 	/* Variable Declaration*/
 	FILE *resultFilePointer;
-	resultFilePointer = fopen ("Results.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
+	resultFilePointer = fopen ("Results2C.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
 	if (resultFilePointer == NULL) {
 		printf ("Cannot open file to write!\n");
 		 exit(-1);
