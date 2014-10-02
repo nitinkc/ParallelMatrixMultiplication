@@ -141,17 +141,16 @@ void parallelMultiplication(){
 		int poolCounter = 0;
 		int	assignIndex=TRUE;//variable to break the while loop after allocation of task is done
 		omp_lock_t lock;
-
-
 		begin = omp_get_wtime();
 		
+
 		omp_init_lock(&lock);//initialize lock on poolCounter
-		#pragma omp parallel shared(matA,matB,matC,poolCounter,assignIndex) private(i,j,k) num_threads(numThreads)
+#pragma omp parallel shared(matA,matB,matC,poolCounter,assignIndex) private(i,j,k) num_threads(numThreads)
 		{
 			while(assignIndex){//Removal of First for loop and picking up individual row
 				omp_set_lock(&lock);
 				if(poolCounter < ROW_A){
-					// printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+					 printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 					poolCounter++;//increment the pool counter until ROW_A
 				}
 
