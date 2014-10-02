@@ -149,8 +149,11 @@ void parallelMultiplication(){
 		{
 			while(assignIndex){//Removal of First for loop and picking up individual row
 				omp_set_lock(&lock);
-				if(poolCounter < ROW_A)
+				if(poolCounter < ROW_A){
+					 printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 					poolCounter++;//increment the pool counter until ROW_A
+				}
+
 				else{
 					assignIndex = FALSE;
 					omp_unset_lock(&lock);
@@ -158,7 +161,6 @@ void parallelMultiplication(){
 				}
 				i = poolCounter;
 				omp_unset_lock(&lock);
-			 printf("Thread =  %d takes Row = %d\n", numThreads,i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			 //Each thread gets one Row
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
