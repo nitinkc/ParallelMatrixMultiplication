@@ -141,6 +141,7 @@ void parallelMultiplication(){
 				else if(poolCounter_j < COL_B){
 					//printf("Thread =  %d takes Col = %d\n", omp_get_thread_num(),poolCounter_j);
 					poolCounter_j++;//increment the pool counter until ROW_A
+					poolCounter_i = 0;
 				}
 
 				else{
