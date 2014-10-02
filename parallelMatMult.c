@@ -166,10 +166,10 @@ void parallelMultiplication(){
 		chunk = ROW_A/numThreads;
 		//omp_set_num_threads(omp_get_num_threads()); //set the number of threads
 		begin = omp_get_wtime();
-		#pragma omp parallel shared(matA,matB,matC,noRows) private(i,j,k)
+		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
 			//Split the first for loop among the threads
-			#pragma omp for //schedule(guided,noRows)
+			#pragma omp for //schedule(guided,chunk)
 			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
 			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  for(j=0;j<COL_B;j++){  //column of second matrix

@@ -56,7 +56,8 @@ int main(){
 	printf("================================================================\n\n");
 	printf("Enter Number of Threads: ");
 	scanf("%d", &numThreads);
-	printf("The number of threads are %d\n", numThreads);
+//	printf("\nEnter chunk size :");
+//	scanf("%d", &chunk);
 
 	/* Check for multiplication compatibility */
 		if (COL_A != ROW_B){
@@ -136,40 +137,22 @@ void fillMatrix(){
 		 * depending upon the division of jobs into threads  */
 
 void parallelMultiplication(){
-		int i,j,k;
-		//Variables for
-		int poolCounter = 0;
-		int	assignIndex=TRUE;//variable to break the while loop after allocation of task is done
-		omp_lock_t lock;
-
-
+	int i,j,k;
 		begin = omp_get_wtime();
-		
-		omp_init_lock(&lock);//initialize lock on poolCounter
-		#pragma omp parallel shared(matA,matB,matC,poolCounter,assignIndex) private(i,j,k) num_threads(numThreads)
+		chunk = ROW_A/numThreads;
+		#pragma omp parallel shared(matA,matB,matC,chunk) private(i,j,k)
 		{
-			while(assignIndex){//Removal of First for loop and picking up individual row
-				omp_set_lock(&lock);
-				if(poolCounter < ROW_A){
-					// printf("Thread =  %d takes Row = %d\n", omp_get_thread_num(),i);			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
-					poolCounter++;//increment the pool counter until ROW_A
-				}
-
-				else{
-					assignIndex = FALSE;
-					omp_unset_lock(&lock);
-					continue;
-				}
-				i = poolCounter;
-				omp_unset_lock(&lock);
-			 //Each thread gets one Row
+			//Split the first for loop among the threads
+			#pragma omp for schedule(dynamic,chunk)
+			//Multiplication of 2 Matrices using traditional 3 loop Algorithm
+			  for(i=0;i<ROW_A;i++){ //row of first matrix
 				  for(j=0;j<COL_B;j++){  //column of second matrix
 					  for(k=0;k<COL_A;k++){
 						  *( matC+(i*COL_A+j) ) += *( matA+(i*ROW_A+k) )*( *( matB+(k*COL_B+j) ));
 					}//end k
 				  }//end j
-			  }//end WHILE
-		  }//Parallel block ends
+			  }//end i
+		  }
 		end = omp_get_wtime();
 		time_spent = (double)(end - begin) ;
 		printf("The time spent is : %1.5f\n", time_spent);
@@ -179,7 +162,7 @@ void collectResults(){
 
 	/* Variable Declaration*/
 	FILE *resultFilePointer;
-	resultFilePointer = fopen ("Results2B.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
+	resultFilePointer = fopen ("Results2B_dyn.csv","a+"); //Append mode, Returns the File descriptor (Null pointer otherwise)
 	if (resultFilePointer == NULL) {
 		printf ("Cannot open file to write!\n");
 		 exit(-1);
@@ -187,8 +170,8 @@ void collectResults(){
 
 	//For Current System time
 	time_t mytime;
-	fprintf(resultFilePointer,"Testing done on : %s", ctime(&mytime));
-	printf("Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
-	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, time_spent);
+	fprintf(resultFilePointer,"Testing done on : %s", time(&mytime));
+	printf("Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads is and %d chunk size is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads,chunk, time_spent);
+	fprintf (resultFilePointer, "Parallel execution time of Matrices of dim %dX%d & %dX%d with %d no. of threads and %d chunk size is %f\n", ROW_A, COL_A, ROW_B, COL_B, numThreads, chunk, time_spent);
 	fprintf (resultFilePointer, "***************************************************************************************\n");
 }
